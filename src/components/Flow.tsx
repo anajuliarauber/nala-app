@@ -58,7 +58,7 @@ export function Flow() {
     ]);
   }
   return (
-    <div className="h-[70vh] w-[70vw] border">
+    <div className="h-[70vh] w-[70vw] border relative">
       <ReactFlow
         nodeTypes={NODE_TYPES}
         nodes={nodes}
@@ -70,14 +70,14 @@ export function Flow() {
         className="bg-gray-200"
       >
         <Background gap={20} size={2} bgColor="#f7f2f2" color="#ccc" />
-        <Controls />
+        <Controls position='bottom-right' />
       </ReactFlow>
 
-      <Toolbar.Root className="fixed bottom-20 left-1/2 -translate-x-1/2 bg-white rounded-xl shadow-lg border-zinc-300 px-8 h-20 w-96 overflow-hidden">
+      <Toolbar.Root className="absolute top-4 right-4 bg-black text-white rounded-xl shadow-lg px-8 overflow-hidden">
         <Toolbar.Button
-          className="w-32 h-32 bg-violet-500 mt-6 rounded"
+          className="rounded-sm py-3"
           onClick={addNode}
-        ></Toolbar.Button>
+        >Create a position</Toolbar.Button>
       </Toolbar.Root>
     </div>
   );
