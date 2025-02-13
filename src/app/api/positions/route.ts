@@ -1,6 +1,5 @@
-import { NextApiRequest } from 'next';
 import { PrismaClient } from '@prisma/client';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 
@@ -9,8 +8,8 @@ export async function GET() {
   return NextResponse.json(positions);
 }
 
-export async function POST(req: NextApiRequest) {
-  const { title, tier, divisionId } = req.body;
+export async function POST(req: NextRequest) {
+  const { title, tier, divisionId } = await req.json();
   const newPosition = await prisma.position.create({
     data: { title, tier, divisionId },
   });
