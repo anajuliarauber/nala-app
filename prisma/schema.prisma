@@ -26,9 +26,8 @@ model Position {
   divisionId Int
   division   Division @relation(fields: [divisionId], references: [id])
 
-  nodeId String @unique // Unique ID from React Flow node
-  x      Float
-  y      Float
+  x Float
+  y Float
 
   relationsAsSource Relation[] @relation("SourceRelation")
   relationsAsTarget Relation[] @relation("TargetRelation")
