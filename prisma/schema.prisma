@@ -25,4 +25,20 @@ model Position {
   tier       Int
   divisionId Int
   division   Division @relation(fields: [divisionId], references: [id])
+
+  nodeId String @unique // Unique ID from React Flow node
+  x      Float
+  y      Float
+
+  relationsAsSource Relation[] @relation("SourceRelation")
+  relationsAsTarget Relation[] @relation("TargetRelation")
+}
+
+model Relation {
+  id        Int      @id @default(autoincrement())
+  sourceId  Int
+  targetId  Int
+  source    Position @relation("SourceRelation", fields: [sourceId], references: [id])
+  target    Position @relation("TargetRelation", fields: [targetId], references: [id])
+  createdAt DateTime @default(now())
 }

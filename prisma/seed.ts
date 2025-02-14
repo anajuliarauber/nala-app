@@ -14,6 +14,19 @@ async function main() {
       { id: 7, name: 'Customer Service' },
     ],
   });
+  
+  await prisma.position.create({
+    data: {
+      id: 1,
+      title: "",
+      tier: 1,
+      divisionId: 1,
+      x: 550,
+      y: 100,
+      nodeId: "1"
+    },
+  });
+
   console.log('Database seeded!');
 }
 
