@@ -1,9 +1,9 @@
 import { useGetDivisions } from '@/hooks/useGetDivisions';
 import { Select, TextField } from '@radix-ui/themes';
-import { Handle, NodeProps, Position } from '@xyflow/react';
+import { Handle, Position } from '@xyflow/react';
 import React from 'react';
 
-export function Card({ data }: NodeProps) {
+export function Card() {
   const divisions = useGetDivisions();
 
   return (
@@ -22,7 +22,7 @@ export function Card({ data }: NodeProps) {
         </Select.Root>
       </div>
       <Handle id="bottom" type="source" position={Position.Bottom} />
-      {!data.isInitialNode && <Handle id="top" type="source" position={Position.Top} />}
+      <Handle id="top" type="source" position={Position.Top} />
     </div>
   );
 }
