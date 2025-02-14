@@ -1,6 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient();
+import { prisma } from './index';
 
 async function main() {
   await prisma.division.createMany({
@@ -14,16 +12,15 @@ async function main() {
       { id: 7, name: 'Customer Service' },
     ],
   });
-  
+
   await prisma.position.create({
     data: {
       id: 1,
-      title: "",
+      title: '',
       tier: 1,
       divisionId: 1,
       x: 550,
       y: 100,
-      nodeId: "1"
     },
   });
 
