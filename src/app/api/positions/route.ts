@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../../prisma/index';
 
 export async function GET() {
   const positions = await prisma.position.findMany({ include: { division: true } });
@@ -9,9 +7,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const { title, tier, divisionId } = await req.json();
+  const { title, tier, divisionId, x, y } = await req.json();
   const newPosition = await prisma.position.create({
-    data: { title, tier, divisionId },
+    data: { title, tier, divisionId, x, y },
   });
   return NextResponse.json(newPosition);
 }
