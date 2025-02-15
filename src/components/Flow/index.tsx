@@ -54,7 +54,7 @@ export function Flow() {
 
   function addNode() {
     const newNode: Node = {
-      id: `${nodes.length + 1}`,
+      id: `${nodes.length === 0 ? 1 : Number(nodes[nodes.length - 1].id) + 1}`,
       type: 'card',
       position: { x: 500, y: 500 },
       data: { label: `Position ${nodes.length + 1}` },
