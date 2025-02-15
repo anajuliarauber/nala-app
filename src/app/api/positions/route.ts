@@ -14,15 +14,25 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(newPosition);
 }
 
-export async function PATCH(req: NextRequest) {
+export async function PUT(req: NextRequest) {
   try {
-    const { id, x, y } = await req.json();
+    const { id, title, divisionId, x, y } = await req.json();
+
     const updatedPosition = await prisma.position.update({
-      where: { id: id },
-      data: { x, y },
+      where: { id },
+      data: {
+        ...(title !== undefined && { title }),
+        ...(divisionId !== undefined && { divisionId }),
+        ...(x !== undefined && { x }),
+        ...(y !== undefined && { y }),
+      },
     });
+
     return NextResponse.json(updatedPosition);
-  } catch {
-    return NextResponse.json({ error: 'Failed to update position' });
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to update position', details: error.message },
+      { status: 400 }
+    );
   }
 }

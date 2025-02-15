@@ -17,7 +17,7 @@ import { useCallback, useEffect } from 'react';
 
 import { Card } from '@/components/Card';
 import { createRelation } from '@/services/relations';
-import { createPosition, updatePositionCoordinates } from '@/services/positions';
+import { createPosition, updatePosition } from '@/services/positions';
 import { getPositionsAsNodes, getRelationsAsEdges } from '../../utils';
 import { NodeDragEvent } from './types';
 
@@ -69,7 +69,7 @@ export function Flow() {
         prevNodes.map((n) => (n.id === node.id ? { ...n, position: node.position } : n))
       );
 
-      updatePositionCoordinates({ id: Number(node.id), x: node.position.x, y: node.position.y });
+      updatePosition({ id: Number(node.id), updates: {x: node.position.x, y: node.position.y} });
     },
     [setNodes]
   );
