@@ -17,8 +17,9 @@ import { useCallback, useEffect } from 'react';
 
 import { Card } from '@/components/Card';
 import { createRelation } from '@/services/relations';
-import { createPosition } from '@/services/positions';
-import { getPositionsAsNodes, getRelationsAsEdges } from '../utils';
+import { createPosition, updatePositionCoordinates } from '@/services/positions';
+import { getPositionsAsNodes, getRelationsAsEdges } from '../../utils';
+import { NodeDragEvent } from './types';
 
 const NODE_TYPES = {
   card: Card,
@@ -62,6 +63,17 @@ export function Flow() {
     createPosition(newNode);
   }
 
+  const onNodeDragStop = useCallback(
+    (_event: React.MouseEvent, node: NodeDragEvent) => {
+      setNodes((prevNodes) =>
+        prevNodes.map((n) => (n.id === node.id ? { ...n, position: node.position } : n))
+      );
+
+      updatePositionCoordinates({ id: Number(node.id), x: node.position.x, y: node.position.y });
+    },
+    [setNodes]
+  );
+
   return (
     <div className="h-[70vh] w-[70vw] border relative">
       <ReactFlow
@@ -73,6 +85,7 @@ export function Flow() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         className="bg-gray-200"
+        onNodeDragStop={onNodeDragStop}
       >
         <Background gap={20} size={2} bgColor="#f7f2f2" color="#ccc" />
         <Controls position="bottom-right" />

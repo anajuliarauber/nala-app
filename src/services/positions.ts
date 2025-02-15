@@ -28,3 +28,29 @@ export async function fetchPositions(): Promise<any[]> {
     throw error;
   }
 }
+
+interface UpdatePositionCoordinates {
+  id: number;
+  x: number;
+  y: number;
+}
+
+export async function updatePositionCoordinates({
+  id,
+  x,
+  y,
+}: UpdatePositionCoordinates): Promise<void> {
+  try {
+    await fetch(Routes.Positions, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id,
+        x,
+        y,
+      }),
+    });
+  } catch (error) {
+    throw error;
+  }
+}
