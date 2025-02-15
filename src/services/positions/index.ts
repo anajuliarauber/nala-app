@@ -1,5 +1,6 @@
-import { Routes } from './routes';
+import { Routes } from '../routes';
 import { Node } from '@xyflow/react';
+import { UpdatePositionCoordinates } from './types';
 
 export async function createPosition(position: Node): Promise<void> {
   try {
@@ -27,12 +28,6 @@ export async function fetchPositions(): Promise<any[]> {
   } catch (error) {
     throw error;
   }
-}
-
-interface UpdatePositionCoordinates {
-  id: number;
-  x: number;
-  y: number;
 }
 
 export async function updatePositionCoordinates({
