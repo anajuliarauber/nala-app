@@ -13,3 +13,16 @@ export async function POST(req: NextRequest) {
   });
   return NextResponse.json(newPosition);
 }
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const { id, x, y } = await req.json();
+    const updatedPosition = await prisma.position.update({
+      where: { id: id },
+      data: { x, y },
+    });
+    return NextResponse.json(updatedPosition);
+  } catch {
+    return NextResponse.json({ error: 'Failed to update position' });
+  }
+}
