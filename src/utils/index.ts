@@ -2,8 +2,9 @@ import { Edge, Node } from '@xyflow/react';
 
 import { fetchPositions } from '@/services/positions';
 import { fetchRelations } from '@/services/relations';
+import { Position, Relation } from './types';
 
-export function transformPositionsToNodes(data: any[]): Node[] {
+export function transformPositionsToNodes(data: Position[]): Node[] {
   return data.map((item) => {
     return {
       id: String(item.id),
@@ -26,7 +27,7 @@ export async function getPositionsAsNodes(): Promise<Node[]> {
   return transformPositionsToNodes(data);
 }
 
-export function transformRelationsToEdges(data: any[]): Edge[] {
+export function transformRelationsToEdges(data: Relation[]): Edge[] {
   return data.map((item) => ({
     id: String(item.id),
     source: String(item.sourceId),

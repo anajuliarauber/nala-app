@@ -1,6 +1,7 @@
 import { Routes } from '../routes';
 import { Node } from '@xyflow/react';
 import { UpdatePositionCoordinates } from './types';
+import { Position } from '@/utils/types';
 
 export async function createPosition(position: Node): Promise<void> {
   try {
@@ -20,7 +21,7 @@ export async function createPosition(position: Node): Promise<void> {
   }
 }
 
-export async function fetchPositions(): Promise<any[]> {
+export async function fetchPositions(): Promise<Position[]> {
   try {
     const res = await fetch(Routes.Positions);
     const data = await res.json();

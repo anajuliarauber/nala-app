@@ -1,5 +1,6 @@
 import { Edge } from '@xyflow/react';
 import { Routes } from './routes';
+import { Relation } from '@/utils/types';
 
 export async function createRelation(edge: Edge): Promise<void> {
   try {
@@ -16,7 +17,7 @@ export async function createRelation(edge: Edge): Promise<void> {
   }
 }
 
-export async function fetchRelations(): Promise<any[]> {
+export async function fetchRelations(): Promise<Relation[]> {
   try {
     const res = await fetch(Routes.Relations);
     const data = await res.json();
