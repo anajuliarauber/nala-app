@@ -29,10 +29,7 @@ export async function PUT(req: NextRequest) {
     });
 
     return NextResponse.json(updatedPosition);
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to update position', details: error.message },
-      { status: 400 }
-    );
+  } catch {
+    return NextResponse.json({ error: 'Failed to update position' }, { status: 400 });
   }
 }
