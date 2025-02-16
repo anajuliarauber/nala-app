@@ -11,27 +11,30 @@ Watch the demo video to see the App in action.
 ### Installation
 
 1. Clone the repository:
-  ```bash
-  git clone https://github.com/anajuliarauber/nala-app.git
-  cd nala-app
-  ```
+    ```bash
+    git clone https://github.com/anajuliarauber/nala-app.git
+    cd nala-app
+    ```
 
 2. Install dependencies:
-  ```bash
-  yarn
-  ```
+    ```bash
+    yarn
+    ```
 
-3. Seed the database with initial data:
- ```bash
-  yarn seed
-  ```
+3. Create and seed the database with initial data:
+   ```bash
+   # Run database migrations
+   npx prisma migrate dev
+
+   # Seed the database with initial data
+   yarn seed
 
 4. Run the development server: 
- ```bash
-  yarn dev
-  ```
+   ```bash
+    yarn dev
+   ```
   
-  Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
 ### Technologies Used
 
