@@ -20,7 +20,7 @@ interface CardProps extends NodeProps {
 }
 
 export function Card({ data }: CardProps) {
-  const [position, setPosition] = useState<string>(data.title);
+  const [position, setPosition] = useState<string>(data.title || '');
   const [division, setDivision] = useState<number>(data.division.id);
 
   const divisions = useGetDivisions();

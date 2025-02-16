@@ -53,11 +53,18 @@ export function Flow() {
   );
 
   function addNode() {
+    const id = nodes.length === 0 ? 1 : Number(nodes[nodes.length - 1].id) + 1;
     const newNode: Node = {
-      id: `${nodes.length === 0 ? 1 : Number(nodes[nodes.length - 1].id) + 1}`,
+      id: String(id),
       type: 'card',
       position: { x: 500, y: 500 },
-      data: { label: `Position ${nodes.length + 1}` },
+      data: {
+        label: `Position ${nodes.length + 1}`,
+        id: id,
+        division: {
+          id: 1,
+        },
+      },
     };
     setNodes([...nodes, newNode]);
     createPosition(newNode);
@@ -69,7 +76,7 @@ export function Flow() {
         prevNodes.map((n) => (n.id === node.id ? { ...n, position: node.position } : n))
       );
 
-      updatePosition({ id: Number(node.id), updates: {x: node.position.x, y: node.position.y} });
+      updatePosition({ id: Number(node.id), updates: { x: node.position.x, y: node.position.y } });
     },
     [setNodes]
   );
