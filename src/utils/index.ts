@@ -17,6 +17,11 @@ export function transformPositionsToNodes(data: Position[]): Node[] {
         division: item.division,
         title: item.title,
         tier: item.id,
+        id: String(item.id),
+        position: {
+          x: item.x,
+          y: item.y,
+        },
       },
     };
   });
