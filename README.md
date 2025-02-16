@@ -24,7 +24,7 @@ Watch the demo video to see the App in action.
 3. Create and seed the database with initial data:
    ```bash
    # Run database migrations
-   npx prisma migrate dev
+   yarn prisma migrate dev
 
    # Seed the database with initial data
    yarn seed
