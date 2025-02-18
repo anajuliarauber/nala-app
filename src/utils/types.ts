@@ -1,7 +1,6 @@
 export interface Position {
   id: string;
   title: string;
-  tier: number;
   divisionId: number;
   division: {
     name: string

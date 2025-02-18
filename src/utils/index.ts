@@ -16,7 +16,6 @@ export function transformPositionsToNodes(data: Position[]): Node[] {
       data: {
         division: item.division,
         title: item.title,
-        tier: item.id,
         id: String(item.id),
         position: {
           x: item.x,

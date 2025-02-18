@@ -7,9 +7,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const { title, tier, divisionId, x, y } = await req.json();
+  const { title, divisionId, x, y } = await req.json();
   const newPosition = await prisma.position.create({
-    data: { title, tier, divisionId, x, y },
+    data: { title, divisionId, x, y },
   });
   return NextResponse.json(newPosition);
 }

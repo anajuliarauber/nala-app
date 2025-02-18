@@ -22,7 +22,6 @@ model Division {
 model Position {
   id         Int      @id @default(autoincrement())
   title      String
-  tier       Int
   divisionId Int
   division   Division @relation(fields: [divisionId], references: [id])
 

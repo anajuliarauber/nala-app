@@ -17,7 +17,6 @@ async function main() {
     data: {
       id: 1,
       title: '',
-      tier: 1,
       divisionId: 1,
       x: 550,
       y: 100,
