@@ -22,15 +22,21 @@ https://www.loom.com/share/693c8688f683404e869f843a2991af98?sid=98571fe4-ab59-47
     yarn
     ```
 
-3. Create and seed the database with initial data:
+3. Add an environment file:
+    ```bash
+    cp .env.example .env
+    ```
+
+4. Create and seed the database with initial data:
    ```bash
    # Run database migrations
    yarn prisma migrate dev
 
    # Seed the database with initial data
    yarn seed
+   ```
 
-4. Run the development server: 
+5. Run the development server: 
    ```bash
     yarn dev
    ```
