@@ -1,20 +1,44 @@
-import { Routes } from './routes';
 import { Node } from '@xyflow/react';
+import { Routes } from './routes';
+
 import { Position } from '@/utils/types';
 
-export async function createPosition(position: Node): Promise<void> {
+export async function createPosition(): Promise<Node> {
   try {
-    await fetch(Routes.Positions, {
+    const positionData = {
+      title: `Position`,
+      divisionId: 1,
+      x: 300,
+      y: 400,
+    };
+
+    const response = await fetch(Routes.Positions, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title: position.data.title ?? `Position ${position.id}`,
-        tier: position.data.tier ?? 1,
-        divisionId: position.data.divisionId ?? 1,
-        x: 300,
-        y: 400,
-      }),
+      body: JSON.stringify(positionData),
     });
+
+    if (!response.ok) {
+      throw new Error('Failed to create position');
+    }
+
+    const data = await response.json();
+    const formattedData = {
+      id: String(data.id),
+      position: {
+        x: data.x,
+        y: data.y,
+      },
+      type: "card",
+      data: {
+        id: data.id,
+        title: data.title,
+        division: {
+          id: data.divisionId,
+        }
+      }
+    };
+    return formattedData;
   } catch (error) {
     throw error;
   }

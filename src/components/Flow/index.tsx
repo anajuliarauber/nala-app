@@ -15,15 +15,14 @@ import {
 import * as Toolbar from '@radix-ui/react-toolbar';
 import { useCallback, useEffect } from 'react';
 
-import { Card } from '@/components/Card';
+
 import { createRelation } from '@/services/relations';
 import { createPosition, updatePosition } from '@/services/positions';
 import { getPositionsAsNodes, getRelationsAsEdges } from '../../utils';
-import { NodeDragEvent } from './types';
 
-const NODE_TYPES = {
-  card: Card,
-};
+import { NODE_TYPES, INITIAL_TIERS, SNAP_GRID,TIERS } from './constants';
+
+
 
 export function Flow() {
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
@@ -37,7 +36,7 @@ export function Flow() {
 
     const fetchPositions = async () => {
       const result = await getPositionsAsNodes();
-      setNodes(result);
+      setNodes([...result, ...INITIAL_TIERS]);
     };
     fetchPositions();
     fetchRelations();
@@ -52,30 +51,36 @@ export function Flow() {
     [edges, setEdges]
   );
 
-  function addNode() {
-    const id = nodes.length === 0 ? 1 : Number(nodes[nodes.length - 1].id) + 1;
-    const newNode: Node = {
-      id: String(id),
-      type: 'card',
-      position: { x: 500, y: 500 },
-      data: {
-        label: `Position ${nodes.length + 1}`,
-        id: id,
-        division: {
-          id: 1,
-        },
-      },
-    };
-    setNodes([...nodes, newNode]);
-    createPosition(newNode);
+  async function addNode() {
+    const newPosition = await createPosition();
+    setNodes([...nodes, newPosition]);
   }
 
-  const onNodeDragStop = useCallback(
-    (_event: React.MouseEvent, node: NodeDragEvent) => {
-      setNodes((prevNodes) =>
-        prevNodes.map((n) => (n.id === node.id ? { ...n, position: node.position } : n))
+  const onNodeDrag = useCallback(
+    (_, node: Node) => {
+      setNodes((nds) =>
+        nds.map((n) =>
+          n.id === node.id ? { ...n, position: { x: node.position.x, y: node.position.y } } : n
+        )
       );
+    },
+    [setNodes]
+  );
 
+  const onNodeDragStop = useCallback(
+    (_, node: Node) => {
+      setNodes((nds) =>
+        nds.map((n) => {
+          if (n.id === node.id) {
+            const tier = TIERS.find(
+              (t) => node.position.y >= t.snapRange[0] && node.position.y <= t.snapRange[1]
+            );
+            const newPosition = tier ? { x: node.position.x, y: tier.snapTarget } : node.position;
+            return { ...n, position: newPosition };
+          }
+          return n;
+        })
+      );
       updatePosition({ id: Number(node.id), updates: { x: node.position.x, y: node.position.y } });
     },
     [setNodes]
@@ -93,6 +98,9 @@ export function Flow() {
         onConnect={onConnect}
         className="bg-gray-200"
         onNodeDragStop={onNodeDragStop}
+        onNodeDrag={onNodeDrag}
+        snapToGrid={true}
+        snapGrid={SNAP_GRID}
       >
         <Background gap={20} size={2} bgColor="#f7f2f2" color="#ccc" />
         <Controls position="bottom-right" />
