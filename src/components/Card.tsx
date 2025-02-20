@@ -4,6 +4,7 @@ import { updatePosition } from '@/services/positions';
 import { Button, Select, TextField } from '@radix-ui/themes';
 import { Handle, NodeProps, Position } from '@xyflow/react';
 import React, { useState } from 'react';
+import { getNodeTier } from '@/utils';
 
 interface CardProps extends NodeProps {
   data: {
@@ -53,10 +54,15 @@ export function Card({ data }: CardProps) {
     });
   };
 
+  const nodeTier = getNodeTier(data.position);
+
   return (
     <div>
-      <div className="p-6 shadow-md rounded-md bg-white border-2 border-stone-400 drag-handle">
+      <div className="p-4 pt-2 shadow-md rounded-md bg-white border-2 border-stone-400 drag-handle">
         <div className="flex flex-col gap-3">
+          <label className="self-end w-1/6 text-sm">
+            <div className="bg-indigo-100 p-1 rounded-2xl text-center">T{nodeTier}</div>
+          </label>
           <TextField.Root placeholder="Position" value={position} onChange={handlePositionChange} />
           <Select.Root value={String(division)} onValueChange={handleDivisionChange}>
             <Select.Trigger placeholder="Division" />
@@ -79,11 +85,9 @@ export function Card({ data }: CardProps) {
         <Handle id="bottom" type="source" position={Position.Bottom} className="invisible " />
         <Handle id="top" type="target" position={Position.Top} />
       </div>
-      <div className="flex justify-center mt-2">
+      <div className="flex justify-center mt-1">
         <Button
           className="rounded cursor-pointer border"
-          variant="classic"
-          color="gray"
           highContrast
           onClick={handleCreateNode}
           onMouseDown={(e) => e.stopPropagation()}
