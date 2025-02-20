@@ -1,3 +1,4 @@
+import { useFlow } from '@/contexts/FlowContext';
 import { useGetDivisions } from '@/hooks/useGetDivisions';
 import { updatePosition } from '@/services/positions';
 import { Button, Select, TextField } from '@radix-ui/themes';
@@ -22,6 +23,7 @@ interface CardProps extends NodeProps {
 export function Card({ data }: CardProps) {
   const [position, setPosition] = useState<string>(data.title || '');
   const [division, setDivision] = useState<number>(data.division.id);
+  const { addNode, onConnect } = useFlow();
 
   const divisions = useGetDivisions();
 
@@ -37,29 +39,53 @@ export function Card({ data }: CardProps) {
     updatePosition({ id: Number(data.id), updates: { title: position, divisionId: division } });
   };
 
+  const handleCreateNode = async () => {
+    const newNode = await addNode();
+    onConnect({
+      source: String(data.id),
+      target: newNode.id,
+      sourceHandle: 'bottom',
+      targetHandle: 'top',
+    });
+  };
+
   return (
-    <div className="p-6 shadow-md rounded-md bg-white border-2 border-stone-400">
-      <div className="flex flex-col gap-3">
-        <TextField.Root placeholder="Position" value={position} onChange={handlePositionChange} />
-        <Select.Root value={String(division)} onValueChange={handleDivisionChange}>
-          <Select.Trigger placeholder="Division" />
-          <Select.Content>
-            {divisions.map((division) => (
-              <Select.Item key={division.id} value={String(division.id)}>
-                {division.name}
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Root>
+    <div>
+      <div className="p-6 shadow-md rounded-md bg-white border-2 border-stone-400">
+        <div className="flex flex-col gap-3">
+          <TextField.Root placeholder="Position" value={position} onChange={handlePositionChange} />
+          <Select.Root value={String(division)} onValueChange={handleDivisionChange}>
+            <Select.Trigger placeholder="Division" />
+            <Select.Content>
+              {divisions.map((division) => (
+                <Select.Item key={division.id} value={String(division.id)}>
+                  {division.name}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Root>
+          <Button
+            onClick={handleSavePosition}
+            className="text-white font-medium px-4 py-2 rounded-md shadow-md transition"
+          >
+            Save
+          </Button>
+        </div>
+
+        <Handle id="bottom" type="source" position={Position.Bottom} className="invisible " />
+        <Handle id="top" type="target" position={Position.Top} />
+      </div>
+      <div className="flex justify-center mt-2">
         <Button
-          onClick={handleSavePosition}
-          className="text-white font-medium px-4 py-2 rounded-md shadow-md transition"
+          className="rounded cursor-pointer border"
+          variant="classic"
+          color="gray"
+          highContrast
+          onClick={handleCreateNode}
         >
-          Save
+          +
         </Button>
       </div>
-      <Handle id="bottom" type="source" position={Position.Bottom} />
-      <Handle id="top" type="target" position={Position.Top} />
     </div>
   );
 }
