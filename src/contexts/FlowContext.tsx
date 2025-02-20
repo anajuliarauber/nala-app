@@ -24,7 +24,7 @@ interface FlowContextType {
   onEdgesChange: OnEdgesChange<Edge>;
   onNodesChange: OnNodesChange;
   onConnect: (connection: Connection) => void;
-  addNode: () => Promise<Node>;
+  addNode: (coordinates: { x: number; y: number }) => Promise<Node>;
   onNodeDrag: OnNodeDrag;
   onNodeDragStop: OnNodeDrag;
 }
@@ -63,8 +63,8 @@ export function FlowProvider({ children }: FlowProviderProps) {
     [edges, setEdges]
   );
 
-  async function addNode() {
-    const newPosition = await createPosition();
+  async function addNode(coordinates: { x: number; y: number }): Promise<Node> {
+    const newPosition = await createPosition(coordinates);
     setNodes([...nodes, newPosition]);
     return newPosition;
   }
@@ -73,7 +73,16 @@ export function FlowProvider({ children }: FlowProviderProps) {
     (_: any, node: Node) => {
       setNodes((nds) =>
         nds.map((n) =>
-          n.id === node.id ? { ...n, position: { x: node.position.x, y: node.position.y } } : n
+          n.id === node.id
+            ? {
+                ...n,
+                position: { x: node.position.x, y: node.position.y },
+                data: {
+                  ...n.data,
+                  position: { x: node.position.x, y: node.position.y },
+                },
+              }
+            : n
         )
       );
     },

@@ -9,6 +9,7 @@ export function transformPositionsToNodes(data: Position[]): Node[] {
     return {
       id: String(item.id),
       type: 'card',
+      dragHandle: '.drag-handle',
       position: {
         x: item.x,
         y: item.y,

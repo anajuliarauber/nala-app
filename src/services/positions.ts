@@ -3,13 +3,13 @@ import { Routes } from './routes';
 
 import { Position } from '@/utils/types';
 
-export async function createPosition(): Promise<Node> {
+export async function createPosition(coordinates: { x: number; y: number }): Promise<Node> {
   try {
     const positionData = {
       title: `Position`,
       divisionId: 1,
-      x: 300,
-      y: 400,
+      x: coordinates.x,
+      y: coordinates.y,
     };
 
     const response = await fetch(Routes.Positions, {
@@ -29,14 +29,19 @@ export async function createPosition(): Promise<Node> {
         x: data.x,
         y: data.y,
       },
-      type: "card",
+      type: 'card',
+      dragHandle: '.drag-handle',
       data: {
-        id: data.id,
+        id: String(data.id),
         title: data.title,
         division: {
           id: data.divisionId,
-        }
-      }
+        },
+        position: {
+          x: data.x,
+          y: data.y,
+        },
+      },
     };
     return formattedData;
   } catch (error) {
