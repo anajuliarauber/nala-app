@@ -43,7 +43,7 @@ export function Card({ data }: CardProps) {
   const handleCreateNode = async () => {
     const coordinates = {
       x: data.position.x,
-      y: data.position.y + 300,
+      y: data.position.y + 340,
     };
     const newNode = await addNode(coordinates);
     onConnect({
@@ -61,7 +61,7 @@ export function Card({ data }: CardProps) {
       <div className="p-4 pt-2 shadow-md rounded-md bg-white border-2 border-stone-400 drag-handle">
         <div className="flex flex-col gap-3">
           <label className="self-end w-1/6 text-sm">
-            <div className="bg-indigo-100 p-1 rounded-2xl text-center">T{nodeTier}</div>
+            <div className="bg-indigo-100 p-1 rounded-2xl text-center">{nodeTier}</div>
           </label>
           <TextField.Root placeholder="Position" value={position} onChange={handlePositionChange} />
           <Select.Root value={String(division)} onValueChange={handleDivisionChange}>
