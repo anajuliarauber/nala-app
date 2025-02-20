@@ -29,12 +29,6 @@ export function Flow() {
         <Background gap={20} size={2} bgColor="#f7f2f2" color="#ccc" />
         <Controls position="bottom-right" />
       </ReactFlow>
-
-      <Toolbar.Root className="absolute top-4 right-4 bg-black text-white rounded-xl shadow-lg px-8 overflow-hidden">
-        <Toolbar.Button className="rounded-sm py-3" onClick={addNode}>
-          Create a position
-        </Toolbar.Button>
-      </Toolbar.Root>
     </div>
   );
 }
