@@ -10,7 +10,7 @@ export function Flow() {
     useFlow();
 
   return (
-    <div className="h-[70vh] w-[70vw] border relative">
+    <div className="h-[80vh] w-full border relative">
       <ReactFlow
         nodeTypes={NODE_TYPES}
         nodes={nodes}
