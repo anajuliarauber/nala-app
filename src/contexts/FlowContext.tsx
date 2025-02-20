@@ -90,7 +90,7 @@ export function FlowProvider({ children }: FlowProviderProps) {
   );
 
   const onNodeDragStop = useCallback(
-    (_: any, node: Node) => {
+    async (_: any, node: Node) => {
       setNodes((nds) =>
         nds.map((n) => {
           if (n.id === node.id) {
@@ -103,7 +103,7 @@ export function FlowProvider({ children }: FlowProviderProps) {
           return n;
         })
       );
-      updatePosition({ id: Number(node.id), updates: { x: node.position.x, y: node.position.y } });
+      await updatePosition({ id: Number(node.id), updates: { x: node.position.x, y: node.position.y } });
     },
     [setNodes]
   );
