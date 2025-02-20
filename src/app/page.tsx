@@ -11,10 +11,10 @@ export default function Home() {
   return (
     <Theme>
       <div className="w-full h-full flex flex-col items-center">
-        <h1 className="text-gray-900 text-3xl lg:text-5xl font-bold leading-none mt-11 mb-6 lg:mb-6">
+        <h1 className="text-gray-900 text-4xl font-bold leading-none mt-8 mb-5">
           Build Your Team Structure with Ease
         </h1>
-        <h2 className="text-gray-700 text-xl lg:text-2xl mb-6">
+        <h2 className="text-gray-700 text-xl mb-6">
           Start creating and connecting roles in just a few clicks.
         </h2>
         <FlowProvider>
