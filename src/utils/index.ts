@@ -1,8 +1,9 @@
-import { ConnectionLineType, Edge, Node } from '@xyflow/react';
+import { Edge, Node } from '@xyflow/react';
 
 import { fetchPositions } from '@/services/positions';
 import { fetchRelations } from '@/services/relations';
 import { Position, Relation } from './types';
+import { TIERS } from '@/components/Flow/constants';
 
 export function transformPositionsToNodes(data: Position[]): Node[] {
   return data.map((item) => {
@@ -39,11 +40,17 @@ export function transformRelationsToEdges(data: Relation[]): Edge[] {
     target: String(item.targetId),
     sourceHandle: 'bottom',
     targetHandle: 'top',
-    type: ConnectionLineType.SmoothStep
   }));
 }
 
 export async function getRelationsAsEdges(): Promise<Edge[]> {
   const data = await fetchRelations();
   return transformRelationsToEdges(data);
+}
+
+export function getNodeTier(position: { x: number; y: number }): number {
+  const node = TIERS.find((tier) => {
+    return position.y >= tier.snapRange[0] && position.y <= tier.snapRange[1];
+  });
+  return node?.id || 1;
 }
