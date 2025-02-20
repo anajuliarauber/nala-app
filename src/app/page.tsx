@@ -5,6 +5,7 @@ import '@radix-ui/themes/styles.css';
 
 import { Flow } from '@/components/Flow';
 import { Theme } from '@radix-ui/themes';
+import { FlowProvider } from '@/contexts/FlowContext';
 
 export default function Home() {
   return (
@@ -16,7 +17,9 @@ export default function Home() {
         <h2 className="text-gray-700 text-xl lg:text-2xl mb-6">
           Start creating and connecting roles in just a few clicks.
         </h2>
-        <Flow />
+        <FlowProvider>
+          <Flow />
+        </FlowProvider>
       </div>
     </Theme>
   );
