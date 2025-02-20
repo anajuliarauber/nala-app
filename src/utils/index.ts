@@ -1,4 +1,4 @@
-import { Edge, Node } from '@xyflow/react';
+import { ConnectionLineType, Edge, Node } from '@xyflow/react';
 
 import { fetchPositions } from '@/services/positions';
 import { fetchRelations } from '@/services/relations';
@@ -38,6 +38,7 @@ export function transformRelationsToEdges(data: Relation[]): Edge[] {
     target: String(item.targetId),
     sourceHandle: 'bottom',
     targetHandle: 'top',
+    type: ConnectionLineType.SmoothStep
   }));
 }
 

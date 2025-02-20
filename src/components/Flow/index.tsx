@@ -101,6 +101,7 @@ export function Flow() {
         onNodeDrag={onNodeDrag}
         snapToGrid={true}
         snapGrid={SNAP_GRID}
+        connectionLineType={ConnectionLineType.SmoothStep}
       >
         <Background gap={20} size={2} bgColor="#f7f2f2" color="#ccc" />
         <Controls position="bottom-right" />
