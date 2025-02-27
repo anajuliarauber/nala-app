@@ -5,7 +5,8 @@ This project is an MVP for a system that enables the design and management of or
 ## Demo Video
 
 Watch the demo video to see the App in action.
-https://www.loom.com/share/693c8688f683404e869f843a2991af98?sid=98571fe4-ab59-47f0-b8be-0efab67f53c6
+
+https://www.loom.com/share/0fd836ad229944d4a36e3f883ac3c54e?sid=08e29359-ce6f-4c57-be00-00ad0673f861
 
 ## Getting Started
 
